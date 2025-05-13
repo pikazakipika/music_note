@@ -17,7 +17,9 @@ function getRandomNote() {
 function loadNewNote() {
     currentNote = getRandomNote();
     console.log("New note loaded:", currentNote); // デバッグ用ログ
-    document.getElementById("noteImage").src = currentNote.image;
+    const noteImage = document.getElementById("noteImage");
+    noteImage.src = currentNote.image;
+    console.log("Note image updated to:", noteImage.src); // UI更新確認用ログ
     document.getElementById("result").textContent = "";
 }
 
