@@ -9,17 +9,12 @@ let currentNote = null;
 let score = 0;
 
 function getRandomNote() {
-    const note = notes[Math.floor(Math.random() * notes.length)];
-    console.log("Random note selected:", note); // デバッグ用ログ
-    return note;
+    return notes[Math.floor(Math.random() * notes.length)];
 }
 
 function loadNewNote() {
     currentNote = getRandomNote();
-    console.log("New note loaded:", currentNote); // デバッグ用ログ
-    const noteImage = document.getElementById("noteImage");
-    noteImage.src = currentNote.image;
-    console.log("Note image updated to:", noteImage.src); // UI更新確認用ログ
+    document.getElementById("noteImage").src = currentNote.image;
     document.getElementById("result").textContent = "";
 }
 
@@ -34,29 +29,38 @@ function updateScore() {
     document.getElementById("score").textContent = score;
 }
 
+function showToast(message, color) {
+    const toast = document.getElementById("toast");
+    toast.textContent = message;
+    toast.style.backgroundColor = color;
+    toast.classList.add("show");
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 2000);
+}
+
 document.getElementById("playSound").addEventListener("click", playSound);
 
 document.querySelectorAll(".choices button").forEach(button => {
-    const newButton = button.cloneNode(true); // ボタンをクローンしてリスナーをリセット
-    button.parentNode.replaceChild(newButton, button);
-    newButton.addEventListener("click", (e) => {
+    button.addEventListener("click", (e) => {
         const target = e.currentTarget; // イベントリスナーが登録されたボタンを取得
         const userChoice = target.getAttribute("data-note").trim();
+        console.log("User choice:", userChoice); // デバッグ用ログ
+        console.log("Current note:", currentNote.name); // デバッグ用ログ
+
         const resultElement = document.getElementById("result");
         if (userChoice === currentNote.name) {
-            resultElement.textContent = "せいかいだよ！いいね！";
-            resultElement.style.color = "#28a745"; // 緑色
+            showToast("せいかいだよ！いいね！", "#28a745"); // 緑色のトースト通知
             document.body.style.backgroundColor = "#d4edda"; // 背景緑色
             score++;
         } else {
-            resultElement.textContent = "ちがうよ、もういちど！";
-            resultElement.style.color = "#dc3545"; // 赤色
+            showToast("ちがうよ、もういちど！", "#dc3545"); // 赤色のトースト通知
             document.body.style.backgroundColor = "#f8d7da"; // 背景赤色
         }
         updateScore();
         setTimeout(() => {
             document.body.style.backgroundColor = ""; // 元の色に戻す
-            resultElement.style.color = "#333"; // デフォルト色に戻す
             loadNewNote();
         }, 1000);
     });
