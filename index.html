@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>音符当てゲーム</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <h1><b>おんぷあてゲーム</b></h1>
+    <div class="note">
+        <img id="noteImage" src="" alt="音符" width="200">
+    </div>
+    <button id="playSound">音を再生</button>
+    <div class="choices">
+        <button data-note="ド"><b>ど</b></button>
+        <button data-note="レ"><b>れ</b></button>
+        <button data-note="ミ"><b>み</b></button>
+        <button data-note="ファ"><b>ふぁ</b></button>
+    </div>
+    <h2>スコア: <span id="score"><b>0</b></span></h2>
+    <p id="result"><b></b></p>
+    <script src="game.js"></script>
+</body>
+</html>

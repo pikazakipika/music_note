@@ -1,0 +1,69 @@
+/* 全体のスタイル */
+body {
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    background-color: #f3f4ed; /* 柔らかいオフホワイト */
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    color: #6c757d; /* 落ち着いたグレー */
+    font-size: 2.5em;
+    margin-top: 20px;
+}
+
+h2 {
+    color: #6c757d; /* 落ち着いたグレー */
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+/* 音符画像のスタイル */
+.note img {
+    border: 5px solid #6c757d; /* グレー */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+}
+
+/* ボタンのスタイル */
+button {
+    background-color: #a8dadc; /* 柔らかい青緑 */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #457b9d; /* 少し濃い青緑 */
+}
+
+button:active {
+    background-color: #1d3557; /* 深い青 */
+}
+
+/* 結果表示のスタイル */
+#result {
+    font-size: 1.2em;
+    color: #333;
+    margin-top: 20px;
+}
+
+/* スコア表示のスタイル */
+#score {
+    font-weight: bold;
+    color: #457b9d; /* 青緑 */
+}
+
+#playSound {
+    margin-bottom: 20px;
+}
+
+.choices {
+    margin-top: 20px;
+}
