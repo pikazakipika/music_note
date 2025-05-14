@@ -3,6 +3,9 @@ const notes = [
     { name: "レ", image: "assets/images/re.png", sound: "assets/sounds/re.mp3" },
     { name: "ミ", image: "assets/images/mi.png", sound: "assets/sounds/mi.mp3" },
     { name: "ファ", image: "assets/images/fa.png", sound: "assets/sounds/fa.mp3" },
+    { name: "ソ", image: "assets/images/so.png", sound: "assets/sounds/so.mp3" },
+    { name: "ラ", image: "assets/images/ra.png", sound: "assets/sounds/ra.mp3" },
+    { name: "シ", image: "assets/images/shi.png", sound: "assets/sounds/shi.mp3" }
 ];
 
 let currentNote = null;

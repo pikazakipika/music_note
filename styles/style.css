@@ -33,10 +33,11 @@ button {
     color: white;
     border: none;
     border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 1em;
+    padding: 15px 25px; /* ボタンを大きく */
+    font-size: 1.2em; /* 文字を大きく */
     cursor: pointer;
     transition: background-color 0.3s;
+    margin: 10px; /* ボタン間の間隔を広げる */
 }
 
 button:hover {
@@ -65,6 +66,10 @@ button:active {
 }
 
 .choices {
+    display: flex;
+    flex-wrap: wrap; /* ボタンを折り返し可能に */
+    justify-content: center; /* ボタンを中央揃え */
+    gap: 10px; /* ボタン間のスペース */
     margin-top: 20px;
 }
 
