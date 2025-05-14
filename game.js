@@ -14,8 +14,14 @@ function getRandomNote() {
 
 function loadNewNote() {
     currentNote = getRandomNote();
-    document.getElementById("noteImage").src = currentNote.image;
+    console.log("New note loaded:", currentNote); // デバッグ用ログ
+    const noteImage = document.getElementById("noteImage");
+    noteImage.src = currentNote.image;
+    console.log("Note image updated to:", noteImage.src); // UI更新確認用ログ
     document.getElementById("result").textContent = "";
+
+    // フォーカスを外す
+    document.activeElement.blur();
 }
 
 function playSound() {
