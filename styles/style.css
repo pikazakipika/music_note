@@ -48,6 +48,12 @@ button:active {
     background-color: #1d3557; /* 深い青 */
 }
 
+button:disabled {
+    background-color: #d3d3d3; /* グレー */
+    color: #a9a9a9; /* 薄いグレー */
+    cursor: not-allowed;
+}
+
 /* 結果表示のスタイル */
 #result {
     font-size: 1.2em;
@@ -93,4 +99,85 @@ button:active {
 .toast.show {
     opacity: 1;
     visibility: visible;
+}
+
+/* アクションボタンのスタイル */
+#actionButtons {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px; /* Reduce margin to bring buttons closer to the top */
+    position: relative; /* Ensure proper positioning */
+    top: -20px; /* Move buttons slightly upward */
+}
+
+#actionButtons button {
+    background-color: #ff6f61; /* 明るい赤 */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    margin: 10px;
+}
+
+#actionButtons button:hover {
+    background-color: #e55b50; /* 少し濃い赤 */
+    transform: scale(1.05); /* 少し拡大 */
+}
+
+#actionButtons button:active {
+    background-color: #cc5047; /* 深い赤 */
+    transform: scale(0.95); /* 少し縮小 */
+}
+
+/* お祝いメッセージとクラッカー画像のスタイル */
+#celebration {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#celebration img {
+    width: 100px;
+    margin-bottom: 10px;
+}
+
+#celebration h2 {
+    color: #28a745;
+    font-size: 2em;
+}
+
+/* ゲームオーバー時のスタイル */
+#celebration.skull {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#celebration.skull img {
+    width: 100px;
+    margin-bottom: 10px;
+    filter: grayscale(100%);
+}
+
+#celebration.skull h2 {
+    color: #dc3545; /* 赤色 */
+    font-size: 2em;
 }

@@ -11,7 +11,6 @@
     <div class="note">
         <img id="noteImage" src="" alt="音符" width="200">
     </div>
-    <button id="playSound">音を再生</button>
     <div class="choices">
         <button data-note="ド"><b>ど</b></button>
         <button data-note="レ"><b>れ</b></button>
@@ -21,9 +20,18 @@
         <button data-note="ラ"><b>ら</b></button>
         <button data-note="シ"><b>し</b></button>
     </div>
-    <h2>スコア: <span id="score"><b>0</b></span></h2>
+    <h2>あと<span id="remaining"><b>4</b>かい</span></h2>
+    <h2 id="timer">のこりじかん: 30秒</h2>
     <p id="result"><b></b></p>
     <div id="toast" class="toast"></div>
+    <div id="actionButtons" style="display: none; margin-top: 20px;">
+        <button id="retryButton">もういちど</button>
+        <button id="nextButton">つぎのもんだいへ</button>
+    </div>
+    <div id="celebration" style="display:none;">
+        <img src="assets/images/cracker.png" alt="クラッカー">
+        <h2>おめでとう！</h2>
+    </div>
     <script src="game.js"></script>
 </body>
 </html>
