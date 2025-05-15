@@ -71,7 +71,7 @@ function setChoiceButtonsDisabled(disabled) {
 // ゲームの状態（残り回数・タイマー）を初期化
 function resetGameState() {
     remainingAnswers = 4;
-    timeLeft = 30;
+    timeLeft = 15;
     updateRemainingAnswers();
     updateElementText("timer", `のこりじかん: ${timeLeft}秒`);
 }
@@ -163,7 +163,7 @@ function endGame() {
 
 // タイマー開始
 function startTimer() {
-    timeLeft = 30;
+    timeLeft = 15;
     updateElementText("timer", `のこりじかん: ${timeLeft}秒`);
     timer = setInterval(() => {
         timeLeft--;
