@@ -10,7 +10,7 @@ const notes = [
 
 let currentNote = null;
 let remainingAnswers = 4; // 残り正解数を追跡
-let timeLeft = 30; // タイムアタックの制限時間（秒）
+let timeLeft = 15; // タイムアタックの制限時間（秒）
 let timer;
 
 // テキスト要素の内容を更新するユーティリティ関数
