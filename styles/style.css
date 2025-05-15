@@ -56,7 +56,7 @@ button:disabled {
 
 /* スタートボタンのスタイル */
 #startButton {
-    background-color: #4caf50; /* 緑色 */
+    background-color: #4b7de9; /* 少し濃い青 */
     color: white;
     border: none;
     border-radius: 5px;
@@ -70,13 +70,27 @@ button:disabled {
 }
 
 #startButton:hover {
-    background-color: #45a049; /* 少し濃い緑 */
+    background-color: #115294; /* 少し濃い青 */
     transform: scale(1.05); /* 少し拡大 */
 }
 
 #startButton:active {
-    background-color: #3e8e41; /* 深い緑 */
+    background-color: #115294; /* 深い緑 */
     transform: scale(0.95); /* 少し縮小 */
+}
+
+/* 次の問題へボタンのスタイル */
+#nextButton {
+    background-color: #4caf50 !important; /* 緑色 */
+    color: white;
+}
+
+#nextButton:hover {
+    background-color: #388e3c !important; /* 濃い緑 */
+}
+
+#nextButton:active {
+    background-color: #256029 !important; /* さらに濃い緑 */
 }
 
 /* 結果表示のスタイル */
@@ -105,15 +119,16 @@ button:disabled {
 }
 
 .choices button {
+    /* デフォルトは有効なボタンのスタイル */
+    background-color: #a8dadc;
+    color: white;
+    cursor: pointer;
+}
+
+.choices button:disabled {
     background-color: #d3d3d3; /* グレー */
     color: #a9a9a9; /* 薄いグレー */
     cursor: not-allowed;
-}
-
-.choices button:enabled {
-    background-color: #a8dadc; /* 柔らかい青緑 */
-    color: white;
-    cursor: pointer;
 }
 
 .toast.show {

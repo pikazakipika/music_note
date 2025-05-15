@@ -13,161 +13,161 @@ let remainingAnswers = 4; // 残り正解数を追跡
 let timeLeft = 30; // タイムアタックの制限時間（秒）
 let timer;
 
-// Utility function to update text content of an element
+// テキスト要素の内容を更新するユーティリティ関数
 function updateElementText(id, text) {
     document.getElementById(id).textContent = text;
 }
 
-// Utility function to show or hide an element
+// 要素の表示・非表示を切り替えるユーティリティ関数
 function toggleElementVisibility(id, isVisible) {
     const element = document.getElementById(id);
     element.style.display = isVisible ? "block" : "none";
 }
 
-// Utility function to set background color
+// ページ全体の背景色を変更するユーティリティ関数
 function setBackgroundColor(color) {
     document.body.style.backgroundColor = color;
 }
 
-// Utility function to toggle multiple elements' visibility
+// 複数の要素の表示・非表示をまとめて切り替えるユーティリティ関数
 function toggleElementsVisibility(ids, isVisible) {
     ids.forEach(id => toggleElementVisibility(id, isVisible));
 }
 
-// Simplify action button visibility toggling
+// アクションボタン（もういちど/つぎ）を表示・非表示切り替え
 function showActionButtons(showRetry, showNext) {
     toggleElementsVisibility(["retryButton", "nextButton"], false);
     if (showRetry) toggleElementVisibility("retryButton", true);
     if (showNext) toggleElementVisibility("nextButton", true);
 }
 
+// ランダムな音符データを取得
 function getRandomNote() {
     return notes[Math.floor(Math.random() * notes.length)];
 }
 
+// 新しい問題（音符画像）を表示
 function loadNewNote() {
     currentNote = getRandomNote();
-    console.log("New note loaded:", currentNote); // Debug log
+    console.log("New note loaded:", currentNote); // デバッグ用
     document.getElementById("noteImage").src = currentNote.image;
-    console.log("Note image updated to:", currentNote.image); // Debug log
+    console.log("Note image updated to:", currentNote.image); // デバッグ用
     updateElementText("result", "");
-    document.activeElement.blur(); // Remove focus
+    document.activeElement.blur(); // フォーカスを外す
 }
 
+// 残り正解回数の表示を更新
 function updateRemainingAnswers() {
     updateElementText("remaining", `${remainingAnswers}かい`);
 }
 
+// ドレミファソラシドのボタンを有効/無効にする
 function setChoiceButtonsDisabled(disabled) {
     document.querySelectorAll(".choices button").forEach(button => {
         button.disabled = disabled;
     });
 }
 
-function checkWinCondition() {
-    if (remainingAnswers <= 0) {
-        clearInterval(timer); // Stop timer
-        setChoiceButtonsDisabled(true); // Disable buttons
-        toggleElementVisibility("actionButtons", false); // Hide action buttons
-
-        // Show celebration message
-        const celebration = document.getElementById("celebration");
-        celebration.style.display = "block";
-
-        setTimeout(() => {
-            celebration.style.display = "none";
-            resetGame(); // Reset game state
-        }, 5000); // Hide after 5 seconds
-    }
+// ゲームの状態（残り回数・タイマー）を初期化
+function resetGameState() {
+    remainingAnswers = 4;
+    timeLeft = 30;
+    updateRemainingAnswers();
+    updateElementText("timer", `のこりじかん: ${timeLeft}秒`);
 }
 
-// Utility function to update multiple elements' text content
-function updateMultipleElementsText(updates) {
-    updates.forEach(({ id, text }) => updateElementText(id, text));
+// 初期画面に戻す（画像・ボタン・タイマー・回数リセット）
+function resetToInitialScreen() {
+    document.getElementById("noteImage").src = "assets/images/quiz.png";
+    setChoiceButtonsDisabled(true);
+    toggleElementVisibility("startButton", true);
+    resetGameState();
+    clearInterval(timer); // タイマー停止
 }
 
-// Utility function to reset game visuals
+// ゲーム中の画面をリセット（背景色・ボタン有効化）
 function resetGameVisuals() {
-    updateMultipleElementsText([
-        { id: "result", text: "" },
-        { id: "timer", text: `のこりじかん: ${timeLeft}秒` },
-    ]);
     setBackgroundColor("");
     setChoiceButtonsDisabled(false);
 }
 
-// Simplify resetGame using the new utility function
+// ゲームを完全リセットして新しい問題を出す
 function resetGame() {
-    remainingAnswers = 4;
-    timeLeft = 30;
-    updateRemainingAnswers();
+    resetGameState();
     resetGameVisuals();
     loadNewNote();
     startTimer();
 }
 
-// Simplify retry and next button logic
+// 「もういちど」「つぎのもんだいへ」ボタンの処理
 function handleRetryOrNext(isRetry) {
     toggleElementVisibility("actionButtons", false);
     resetGameVisuals();
     if (!isRetry) loadNewNote();
 }
 
-// Button click event handler
+// 音符ボタンが押されたときの処理
 function handleButtonClick(e) {
     const target = e.currentTarget;
     const userChoice = target.getAttribute("data-note").trim();
-    console.log("User choice:", userChoice); // Debug log
-    console.log("Current note:", currentNote.name); // Debug log
+    console.log("User choice:", userChoice); // デバッグ用
+    console.log("Current note:", currentNote.name); // デバッグ用
 
-    const resultElement = document.getElementById("result");
     if (userChoice === currentNote.name) {
-        updateElementText("result", "せいかいだよ！いいね！");
-        resultElement.style.color = "#28a745"; // Green
-        setBackgroundColor("#d4edda"); // Light green
+        setBackgroundColor("#d4edda"); // 正解時の背景色
         toggleElementVisibility("actionButtons", true);
         showActionButtons(false, true);
         remainingAnswers--;
         updateRemainingAnswers();
         checkWinCondition();
     } else {
-        updateElementText("result", "ちがうよ、もういちど！");
-        resultElement.style.color = "#dc3545"; // Red
-        setBackgroundColor("#f8d7da"); // Light red
+        setBackgroundColor("#f8d7da"); // 不正解時の背景色
         toggleElementVisibility("actionButtons", true);
         showActionButtons(true, false);
     }
     setChoiceButtonsDisabled(true);
 }
 
-// Initialize event listeners for choice buttons
-document.querySelectorAll(".choices button").forEach(button => {
-    button.addEventListener("click", handleButtonClick);
-});
+// 残り回数が0になったときの勝利判定
+function checkWinCondition() {
+    if (remainingAnswers <= 0) {
+        clearInterval(timer); // タイマー停止
+        setChoiceButtonsDisabled(true);
+        toggleElementVisibility("actionButtons", false);
+        // お祝いメッセージ表示
+        const celebration = document.getElementById("celebration");
+        celebration.style.display = "block";
+        setTimeout(() => {
+            celebration.style.display = "none";
+            resetGame();
+            resetToInitialScreen();
+        }, 5000);
+    }
+}
 
-// Initialize event listeners for action buttons
-document.getElementById("retryButton").addEventListener("click", () => handleRetryOrNext(true));
-document.getElementById("nextButton").addEventListener("click", () => handleRetryOrNext(false));
+// ゲームオーバー時の処理
+function endGame() {
+    setChoiceButtonsDisabled(true);
+    toggleElementVisibility("actionButtons", false);
+    // ゲームオーバーメッセージ表示
+    const celebration = document.getElementById("celebration");
+    celebration.classList.add("skull");
+    celebration.innerHTML = '<img src="assets/images/skull.png" alt="どくろ"><h2>ゲームオーバー</h2>';
+    celebration.style.display = "block";
+    setTimeout(() => {
+        celebration.style.display = "none";
+        celebration.classList.remove("skull");
+        resetToInitialScreen();
+    }, 5000);
+}
 
-// Disable choice buttons initially
-setChoiceButtonsDisabled(true);
-
-document.getElementById("startButton").addEventListener("click", () => {
-    toggleElementVisibility("startButton", false); // Hide the start button
-    setChoiceButtonsDisabled(false); // Enable choice buttons
-    loadNewNote(); // Load the first note
-    startTimer(); // Start the timer
-    updateRemainingAnswers(); // Update the remaining answers display
-});
-
+// タイマー開始
 function startTimer() {
-    timeLeft = 30; // Reset timer
+    timeLeft = 30;
     updateElementText("timer", `のこりじかん: ${timeLeft}秒`);
-
     timer = setInterval(() => {
         timeLeft--;
         updateElementText("timer", `のこりじかん: ${timeLeft}秒`);
-
         if (timeLeft <= 0) {
             clearInterval(timer);
             endGame();
@@ -175,19 +175,23 @@ function startTimer() {
     }, 1000);
 }
 
-function endGame() {
-    setChoiceButtonsDisabled(true); // Disable choice buttons
-    toggleElementVisibility("actionButtons", false); // Hide action buttons
+// イベントリスナー登録
+// 音符ボタン
+document.querySelectorAll(".choices button").forEach(button => {
+    button.addEventListener("click", handleButtonClick);
+});
 
-    // Show game over message
-    const celebration = document.getElementById("celebration");
-    celebration.classList.add("skull");
-    celebration.innerHTML = '<img src="assets/images/skull.png" alt="どくろ"><h2>ゲームオーバー</h2>';
-    celebration.style.display = "block";
+// アクションボタン
+document.getElementById("retryButton").addEventListener("click", () => handleRetryOrNext(true));
+document.getElementById("nextButton").addEventListener("click", () => handleRetryOrNext(false));
 
-    setTimeout(() => {
-        celebration.style.display = "none";
-        celebration.classList.remove("skull");
-        resetGame(); // Reset the game state
-    }, 5000); // Hide after 5 seconds
-}
+document.getElementById("startButton").addEventListener("click", () => {
+    toggleElementVisibility("startButton", false); // スタートボタン非表示
+    setChoiceButtonsDisabled(false); // 選択ボタン有効化
+    loadNewNote(); // 最初の問題を読み込み
+    startTimer(); // タイマー開始
+    updateRemainingAnswers(); // 残り正解数表示を更新
+});
+
+// 初期状態で選択ボタンを無効化
+setChoiceButtonsDisabled(true);

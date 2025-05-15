@@ -1,0 +1,26 @@
+{
+  "name": "piano",
+  "version": "1.0.0",
+  "main": "game.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pikazakipika/music_note.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pikazakipika/music_note/issues"
+  },
+  "homepage": "https://github.com/pikazakipika/music_note#readme",
+  "description": "",
+  "devDependencies": {
+    "playwright": "^1.52.0"
+  }
+}
