@@ -8,9 +8,14 @@
 </head>
 <body>
     <h1><b>おんぷあてゲーム</b></h1>
+    <button id="startButton">スタート</button>
     <div class="note">
-        <img id="noteImage" src="" alt="音符" width="200">
+        <img id="noteImage" src="assets/images/quiz.png" alt="音符" width="200">
     </div>
+    <div id="actionButtons" class="centered">
+        <button id="retryButton">もういちど</button>
+        <button id="nextButton">つぎのもんだいへ</button>
+    </div>    
     <div class="choices">
         <button data-note="ド"><b>ど</b></button>
         <button data-note="レ"><b>れ</b></button>
@@ -24,10 +29,6 @@
     <h2 id="timer">のこりじかん: 30秒</h2>
     <p id="result"><b></b></p>
     <div id="toast" class="toast"></div>
-    <div id="actionButtons" style="display: none; margin-top: 20px;">
-        <button id="retryButton">もういちど</button>
-        <button id="nextButton">つぎのもんだいへ</button>
-    </div>
     <div id="celebration" style="display:none;">
         <img src="assets/images/cracker.png" alt="クラッカー">
         <h2>おめでとう！</h2>

@@ -29,6 +29,18 @@ function setBackgroundColor(color) {
     document.body.style.backgroundColor = color;
 }
 
+// Utility function to toggle multiple elements' visibility
+function toggleElementsVisibility(ids, isVisible) {
+    ids.forEach(id => toggleElementVisibility(id, isVisible));
+}
+
+// Simplify action button visibility toggling
+function showActionButtons(showRetry, showNext) {
+    toggleElementsVisibility(["retryButton", "nextButton"], false);
+    if (showRetry) toggleElementVisibility("retryButton", true);
+    if (showNext) toggleElementVisibility("nextButton", true);
+}
+
 function getRandomNote() {
     return notes[Math.floor(Math.random() * notes.length)];
 }
@@ -69,33 +81,36 @@ function checkWinCondition() {
     }
 }
 
+// Utility function to update multiple elements' text content
+function updateMultipleElementsText(updates) {
+    updates.forEach(({ id, text }) => updateElementText(id, text));
+}
+
+// Utility function to reset game visuals
+function resetGameVisuals() {
+    updateMultipleElementsText([
+        { id: "result", text: "" },
+        { id: "timer", text: `のこりじかん: ${timeLeft}秒` },
+    ]);
+    setBackgroundColor("");
+    setChoiceButtonsDisabled(false);
+}
+
+// Simplify resetGame using the new utility function
 function resetGame() {
     remainingAnswers = 4;
     timeLeft = 30;
     updateRemainingAnswers();
-    updateElementText("timer", `のこりじかん: ${timeLeft}秒`);
-    updateElementText("result", "");
-    setBackgroundColor("");
-    setChoiceButtonsDisabled(false);
+    resetGameVisuals();
     loadNewNote();
     startTimer();
 }
 
-function endGame() {
-    setChoiceButtonsDisabled(true); // Disable buttons
-    toggleElementVisibility("actionButtons", false); // Hide action buttons
-
-    // Show game over message
-    const celebration = document.getElementById("celebration");
-    celebration.classList.add("skull");
-    celebration.innerHTML = '<img src="assets/images/skull.png" alt="どくろ"><h2>ゲームオーバー</h2>';
-    celebration.style.display = "block";
-
-    setTimeout(() => {
-        celebration.style.display = "none";
-        celebration.classList.remove("skull");
-        resetGame(); // Reset game state
-    }, 5000); // Hide after 5 seconds
+// Simplify retry and next button logic
+function handleRetryOrNext(isRetry) {
+    toggleElementVisibility("actionButtons", false);
+    resetGameVisuals();
+    if (!isRetry) loadNewNote();
 }
 
 // Button click event handler
@@ -111,8 +126,7 @@ function handleButtonClick(e) {
         resultElement.style.color = "#28a745"; // Green
         setBackgroundColor("#d4edda"); // Light green
         toggleElementVisibility("actionButtons", true);
-        toggleElementVisibility("retryButton", false);
-        toggleElementVisibility("nextButton", true);
+        showActionButtons(false, true);
         remainingAnswers--;
         updateRemainingAnswers();
         checkWinCondition();
@@ -121,8 +135,7 @@ function handleButtonClick(e) {
         resultElement.style.color = "#dc3545"; // Red
         setBackgroundColor("#f8d7da"); // Light red
         toggleElementVisibility("actionButtons", true);
-        toggleElementVisibility("retryButton", true);
-        toggleElementVisibility("nextButton", false);
+        showActionButtons(true, false);
     }
     setChoiceButtonsDisabled(true);
 }
@@ -133,19 +146,18 @@ document.querySelectorAll(".choices button").forEach(button => {
 });
 
 // Initialize event listeners for action buttons
-document.getElementById("retryButton").addEventListener("click", () => {
-    toggleElementVisibility("actionButtons", false);
-    updateElementText("result", "");
-    setBackgroundColor("");
-    setChoiceButtonsDisabled(false);
-});
+document.getElementById("retryButton").addEventListener("click", () => handleRetryOrNext(true));
+document.getElementById("nextButton").addEventListener("click", () => handleRetryOrNext(false));
 
-document.getElementById("nextButton").addEventListener("click", () => {
-    toggleElementVisibility("actionButtons", false);
-    updateElementText("result", "");
-    setBackgroundColor("");
-    setChoiceButtonsDisabled(false);
-    loadNewNote();
+// Disable choice buttons initially
+setChoiceButtonsDisabled(true);
+
+document.getElementById("startButton").addEventListener("click", () => {
+    toggleElementVisibility("startButton", false); // Hide the start button
+    setChoiceButtonsDisabled(false); // Enable choice buttons
+    loadNewNote(); // Load the first note
+    startTimer(); // Start the timer
+    updateRemainingAnswers(); // Update the remaining answers display
 });
 
 function startTimer() {
@@ -163,7 +175,19 @@ function startTimer() {
     }, 1000);
 }
 
-// 初期化
-loadNewNote();
-startTimer();
-updateRemainingAnswers();
+function endGame() {
+    setChoiceButtonsDisabled(true); // Disable choice buttons
+    toggleElementVisibility("actionButtons", false); // Hide action buttons
+
+    // Show game over message
+    const celebration = document.getElementById("celebration");
+    celebration.classList.add("skull");
+    celebration.innerHTML = '<img src="assets/images/skull.png" alt="どくろ"><h2>ゲームオーバー</h2>';
+    celebration.style.display = "block";
+
+    setTimeout(() => {
+        celebration.style.display = "none";
+        celebration.classList.remove("skull");
+        resetGame(); // Reset the game state
+    }, 5000); // Hide after 5 seconds
+}

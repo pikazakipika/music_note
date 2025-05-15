@@ -54,6 +54,31 @@ button:disabled {
     cursor: not-allowed;
 }
 
+/* スタートボタンのスタイル */
+#startButton {
+    background-color: #4caf50; /* 緑色 */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 15px 30px;
+    font-size: 1.5em;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 20px auto;
+    display: block;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#startButton:hover {
+    background-color: #45a049; /* 少し濃い緑 */
+    transform: scale(1.05); /* 少し拡大 */
+}
+
+#startButton:active {
+    background-color: #3e8e41; /* 深い緑 */
+    transform: scale(0.95); /* 少し縮小 */
+}
+
 /* 結果表示のスタイル */
 #result {
     font-size: 1.2em;
@@ -79,21 +104,16 @@ button:disabled {
     margin-top: 20px;
 }
 
-/* トースト通知のスタイル */
-.toast {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #333;
+.choices button {
+    background-color: #d3d3d3; /* グレー */
+    color: #a9a9a9; /* 薄いグレー */
+    cursor: not-allowed;
+}
+
+.choices button:enabled {
+    background-color: #a8dadc; /* 柔らかい青緑 */
     color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.5s, visibility 0.5s;
-    z-index: 1000;
+    cursor: pointer;
 }
 
 .toast.show {
@@ -103,11 +123,11 @@ button:disabled {
 
 /* アクションボタンのスタイル */
 #actionButtons {
-    display: flex;
+    display: none; /* Hide by default */
     justify-content: center;
-    margin-top: 10px; /* Reduce margin to bring buttons closer to the top */
-    position: relative; /* Ensure proper positioning */
-    top: -20px; /* Move buttons slightly upward */
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px; /* Removed absolute positioning for better layout */
 }
 
 #actionButtons button {
@@ -116,11 +136,12 @@ button:disabled {
     border: none;
     border-radius: 5px;
     padding: 15px 30px;
-    font-size: 1.2em;
+    font-size: 1.0em;
     font-weight: bold;
     cursor: pointer;
+    margin: 20px auto;
+    display: block;
     transition: background-color 0.3s, transform 0.2s;
-    margin: 10px;
 }
 
 #actionButtons button:hover {
@@ -180,4 +201,13 @@ button:disabled {
 #celebration.skull h2 {
     color: #dc3545; /* 赤色 */
     font-size: 2em;
+}
+
+/* 中央揃えのための再利用可能なクラス */
+.centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
 }
