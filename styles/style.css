@@ -231,7 +231,7 @@ button:disabled {
 #modeSelect {
   display: flex; /* 横並び配置 */
   justify-content: center; /* 中央揃え */
-  gap: 24px; /* ラベル間のスペース */
+  gap: 4px; /* ラベル間のスペースを縮める */
   margin-bottom: 16px; /* 下余白 */
 }
 #modeSelect label {
@@ -263,6 +263,10 @@ button:disabled {
 #modeSelect input[type="radio"]:checked + span {
   color: #e67e22; /* 選択時の文字色 */
   font-weight: bold; /* 選択時は太字 */
+  background: #ffe08a; /* 選択時の背景色を少し濃く */
+  border-radius: 16px; /* 背景色に角丸 */
+  padding: 4px 8px;
+  transition: background 0.2s;
 }
 #modeSelect span {
   transition: color 0.2s, font-weight 0.2s; /* 色・太字のアニメ */

@@ -159,7 +159,6 @@ function checkWinCondition() {
         celebration.style.display = "block";
         setTimeout(() => {
             celebration.style.display = "none";
-            resetGame();
             resetToInitialScreen();
         }, 5000);
     }
