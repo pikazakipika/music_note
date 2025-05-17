@@ -1,22 +1,22 @@
 // ト音記号モード用
 const notes_tone = [
-    { name: "ド", image: "assets/images/tone_do.png", sound: "assets/sounds/tone_do.mp3" },
-    { name: "レ", image: "assets/images/tone_re.png", sound: "assets/sounds/tone_re.mp3" },
-    { name: "ミ", image: "assets/images/tone_mi.png", sound: "assets/sounds/tone_mi.mp3" },
-    { name: "ファ", image: "assets/images/tone_fa.png", sound: "assets/sounds/tone_fa.mp3" },
-    { name: "ソ", image: "assets/images/tone_so.png", sound: "assets/sounds/tone_so.mp3" },
-    { name: "ラ", image: "assets/images/tone_ra.png", sound: "assets/sounds/tone_ra.mp3" },
-    { name: "シ", image: "assets/images/tone_shi.png", sound: "assets/sounds/tone_shi.mp3" }
+    { name: "ド", image: "assets/images/tone_do.png" },
+    { name: "レ", image: "assets/images/tone_re.png" },
+    { name: "ミ", image: "assets/images/tone_mi.png" },
+    { name: "ファ", image: "assets/images/tone_fa.png" },
+    { name: "ソ", image: "assets/images/tone_so.png" },
+    { name: "ラ", image: "assets/images/tone_ra.png" },
+    { name: "シ", image: "assets/images/tone_shi.png" }
 ];
 // ヘ音記号モード用
 const notes_heon = [
-    { name: "ド", image: "assets/images/heon_do.png", sound: "assets/sounds/tone_do.mp3" },
-    { name: "レ", image: "assets/images/heon_re.png", sound: "assets/sounds/tone_re.mp3" },
-    { name: "ミ", image: "assets/images/heon_mi.png", sound: "assets/sounds/tone_mi.mp3" },
-    { name: "ファ", image: "assets/images/heon_fa.png", sound: "assets/sounds/tone_fa.mp3" },
-    { name: "ソ", image: "assets/images/heon_so.png", sound: "assets/sounds/tone_so.mp3" },
-    { name: "ラ", image: "assets/images/heon_ra.png", sound: "assets/sounds/tone_ra.mp3" },
-    { name: "シ", image: "assets/images/heon_shi.png", sound: "assets/sounds/tone_shi.mp3" }
+    { name: "ド", image: "assets/images/heon_do.png" },
+    { name: "レ", image: "assets/images/heon_re.png" },
+    { name: "ミ", image: "assets/images/heon_mi.png" },
+    { name: "ファ", image: "assets/images/heon_fa.png" },
+    { name: "ソ", image: "assets/images/heon_so.png" },
+    { name: "ラ", image: "assets/images/heon_ra.png" },
+    { name: "シ", image: "assets/images/heon_shi.png" }
 ];
 
 // 現在のモードに応じて出題するnotes配列を返す
