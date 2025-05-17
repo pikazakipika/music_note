@@ -1,12 +1,29 @@
-const notes = [
-    { name: "ド", image: "assets/images/do.png", sound: "assets/sounds/do.mp3" },
-    { name: "レ", image: "assets/images/re.png", sound: "assets/sounds/re.mp3" },
-    { name: "ミ", image: "assets/images/mi.png", sound: "assets/sounds/mi.mp3" },
-    { name: "ファ", image: "assets/images/fa.png", sound: "assets/sounds/fa.mp3" },
-    { name: "ソ", image: "assets/images/so.png", sound: "assets/sounds/so.mp3" },
-    { name: "ラ", image: "assets/images/ra.png", sound: "assets/sounds/ra.mp3" },
-    { name: "シ", image: "assets/images/shi.png", sound: "assets/sounds/shi.mp3" }
+// ト音記号モード用
+const notes_tone = [
+    { name: "ド", image: "assets/images/tone_do.png", sound: "assets/sounds/tone_do.mp3" },
+    { name: "レ", image: "assets/images/tone_re.png", sound: "assets/sounds/tone_re.mp3" },
+    { name: "ミ", image: "assets/images/tone_mi.png", sound: "assets/sounds/tone_mi.mp3" },
+    { name: "ファ", image: "assets/images/tone_fa.png", sound: "assets/sounds/tone_fa.mp3" },
+    { name: "ソ", image: "assets/images/tone_so.png", sound: "assets/sounds/tone_so.mp3" },
+    { name: "ラ", image: "assets/images/tone_ra.png", sound: "assets/sounds/tone_ra.mp3" },
+    { name: "シ", image: "assets/images/tone_shi.png", sound: "assets/sounds/tone_shi.mp3" }
 ];
+// ヘ音記号モード用
+const notes_heon = [
+    { name: "ド", image: "assets/images/heon_do.png", sound: "assets/sounds/tone_do.mp3" },
+    { name: "レ", image: "assets/images/heon_re.png", sound: "assets/sounds/tone_re.mp3" },
+    { name: "ミ", image: "assets/images/heon_mi.png", sound: "assets/sounds/tone_mi.mp3" },
+    { name: "ファ", image: "assets/images/heon_fa.png", sound: "assets/sounds/tone_fa.mp3" },
+    { name: "ソ", image: "assets/images/heon_so.png", sound: "assets/sounds/tone_so.mp3" },
+    { name: "ラ", image: "assets/images/heon_ra.png", sound: "assets/sounds/tone_ra.mp3" },
+    { name: "シ", image: "assets/images/heon_shi.png", sound: "assets/sounds/tone_shi.mp3" }
+];
+
+// 現在のモードに応じて出題するnotes配列を返す
+function getCurrentNotes() {
+    const mode = document.querySelector('input[name="mode"]:checked').value;
+    return mode === "heon" ? notes_heon : notes_tone;
+}
 
 let currentNote = null;
 let remainingAnswers = 4; // 残り正解数を追跡
@@ -43,6 +60,7 @@ function showActionButtons(showRetry, showNext) {
 
 // ランダムな音符データを取得
 function getRandomNote() {
+    const notes = getCurrentNotes();
     return notes[Math.floor(Math.random() * notes.length)];
 }
 
@@ -81,6 +99,8 @@ function resetToInitialScreen() {
     document.getElementById("noteImage").src = "assets/images/quiz.png";
     setChoiceButtonsDisabled(true);
     toggleElementVisibility("startButton", true);
+    // モード切り替えを再度有効化
+    document.querySelectorAll('input[name="mode"]').forEach(r => r.disabled = false);
     resetGameState();
     clearInterval(timer); // タイマー停止
 }
@@ -186,6 +206,8 @@ document.getElementById("retryButton").addEventListener("click", () => handleRet
 document.getElementById("nextButton").addEventListener("click", () => handleRetryOrNext(false));
 
 document.getElementById("startButton").addEventListener("click", () => {
+    // ゲーム中はモード切り替え不可
+    document.querySelectorAll('input[name="mode"]').forEach(r => r.disabled = true);
     toggleElementVisibility("startButton", false); // スタートボタン非表示
     setChoiceButtonsDisabled(false); // 選択ボタン有効化
     loadNewNote(); // 最初の問題を読み込み

@@ -226,3 +226,57 @@ button:disabled {
     flex-direction: column;
     margin-top: 20px;
 }
+
+/* --- モード切替ラジオボタン --- */
+#modeSelect {
+  display: flex; /* 横並び配置 */
+  justify-content: center; /* 中央揃え */
+  gap: 24px; /* ラベル間のスペース */
+  margin-bottom: 16px; /* 下余白 */
+}
+#modeSelect label {
+  background: #fffbe7; /* やさしい背景色 */
+  border: 2px solid #ffd966; /* 黄色系の枠線 */
+  border-radius: 24px; /* 角丸 */
+  padding: 8px 20px 8px 36px; /* 内側余白（左はラジオボタン分広め） */
+  font-size: 1.1em; /* 文字サイズ */
+  position: relative; /* ラジオボタン位置調整用 */
+  cursor: pointer; /* カーソルをポインタに */
+  transition: background 0.2s, border 0.2s; /* ホバー時のアニメ */
+  box-shadow: 0 2px 8px #ffe06644; /* ふんわり影 */
+  font-weight: normal; /* 通常は標準太さ */
+  color: #444; /* 文字色 */
+}
+#modeSelect input[type="radio"] {
+  accent-color: #ffd966; /* ラジオボタンの色 */
+  position: absolute; /* ラベル内で絶対配置 */
+  left: 12px; /* 左端からの位置 */
+  top: 50%; /* 縦中央 */
+  transform: translateY(-50%); /* 縦中央揃え */
+  width: 18px; /* サイズ */
+  height: 18px;
+}
+#modeSelect input[type="radio"]:focus + span {
+  outline: 2px solid #ffb300; /* フォーカス時の枠 */
+  outline-offset: 2px; /* 枠の余白 */
+}
+#modeSelect input[type="radio"]:checked + span {
+  color: #e67e22; /* 選択時の文字色 */
+  font-weight: bold; /* 選択時は太字 */
+}
+#modeSelect span {
+  transition: color 0.2s, font-weight 0.2s; /* 色・太字のアニメ */
+}
+#modeSelect label:hover {
+  background: #fff2b2; /* ホバー時の背景色 */
+  border-color: #ffb300; /* ホバー時の枠色 */
+}
+#modeSelect input[type="radio"]:checked ~ label {
+  border-color: #ffb300; /* 選択時の枠色 */
+  background: #fff2b2; /* 選択時の背景色 */
+}
+#modeSelect label.selected {
+  border-color: #ffb300; /* JSで.selected付与時の枠色 */
+  background: #fff2b2; /* JSで.selected付与時の背景色 */
+  color: #e67e22; /* JSで.selected付与時の文字色 */
+}
